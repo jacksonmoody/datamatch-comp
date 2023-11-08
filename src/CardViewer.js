@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import "./Card.css";
 
 class CardViewer extends React.Component {
@@ -22,7 +23,7 @@ class CardViewer extends React.Component {
         <button disabled = {this.state.index <= 0} onClick={() => this.setState({ index: this.state.index - 1, flipped: false })}> Previous card </button>
         <button disabled = {this.state.index >= this.props.cards.length - 1} onClick={() => this.setState({ index: this.state.index + 1, flipped: false })}> Next card </button>
         <br /> <br />
-        <button onClick={this.props.switchMode}>Go to card editor</button>
+        <Link to="/editor">Go to card editor</Link>
       </div>
     );
   }
