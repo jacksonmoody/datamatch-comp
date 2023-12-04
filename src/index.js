@@ -1,9 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import firebase from 'firebase/compat/app';
+import 'firebase/compat/database';
 import { createStore, combineReducers } from "redux";
 import {
   ReactReduxFirebaseProvider,
@@ -13,7 +14,7 @@ import {
 const firebaseConfig = {
   apiKey: "AIzaSyBDv6FCRhVdQPqGjfGp2fexXpdoYu2qiis",
   authDomain: "jackson-datamatch-bootcamp.firebaseapp.com",
-  databaseURL: "https://jackson-datamatch-bootcamp-default-rtdb.firebaseio.com",
+  databaseURL: "https://jackson-datamatch-bootcamp-default-rtdb.firebaseio.com/",
   projectId: "jackson-datamatch-bootcamp",
   storageBucket: "jackson-datamatch-bootcamp.appspot.com",
   messagingSenderId: "609737918747",
@@ -36,13 +37,14 @@ const rrfProps = {
   dispatch: store.dispatch,
 };
 
-ReactDOM.render(
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </ReactReduxFirebaseProvider>
-  </Provider>,
-  document.getElementById("root")
+  </Provider>
 );
