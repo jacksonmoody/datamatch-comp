@@ -1,5 +1,5 @@
 import React from "react";
-import "./CardEditor.css";
+import "./Homepage.css";
 import { Link } from "react-router-dom";
 import { firebaseConnect, isLoaded } from "react-redux-firebase";
 import { connect } from "react-redux";
@@ -16,18 +16,24 @@ const Homepage = (props) => {
 
   const decks = Object.keys(props.homepage).map((deckId) => {
     return (
-      <div key={deckId}>
-        <Link to={`/viewer/${deckId}`}>{props.homepage[deckId].name}</Link>
-      </div>
+      <Link to={`/viewer/${deckId}`} className="deckLink" key={deckId}>
+        {props.homepage[deckId].name}
+      </Link>
     );
   });
 
   return (
     <div>
-      <h2>Welcome to Jackson's Flashcards app!</h2>
-      <Link to="/editor">Create a new deck</Link>
-      <h3>Flashcard Decks</h3>
-      {decks}
+      <header>
+        <h2>Welcome to Jackson's Flashcards App!</h2>
+        <Link to="/editor">
+          <button type="button" className="createButton">
+            Create a new deck
+          </button>
+        </Link>
+        <h3 className="flashcardHeader">Flashcard Decks</h3>
+      </header>
+      <div className="cardList">{decks}</div>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import "./Card.css";
+import "./CardViewer.css";
 
 class CardViewer extends React.Component {
   constructor(props) {
@@ -21,45 +21,48 @@ class CardViewer extends React.Component {
     }
 
     return (
-      <div>
-        <h2>{this.props.name}</h2>
-        <h3>
-          Card {this.state.index + 1} out of {this.props.cards.length}
-        </h3>
-        <hr />
-        <div
-          className="card"
-          onClick={() => this.setState({ flipped: !this.state.flipped })}
-        >
-          <div className="card-text" hidden={this.state.flipped}>
-            {this.props.cards[this.state.index].front}
+      <>
+        <header>
+          <h2>{this.props.name}</h2>
+          <h3>
+            Card {this.state.index + 1} out of {this.props.cards.length}
+          </h3>
+        </header>
+        <div className="body">
+          <div
+            className="card"
+            onClick={() => this.setState({ flipped: !this.state.flipped })}
+          >
+            <div className="card-text" hidden={this.state.flipped}>
+              {this.props.cards[this.state.index].front}
+            </div>
+            <div className="card-text" hidden={!this.state.flipped}>
+              {this.props.cards[this.state.index].back}
+            </div>
           </div>
-          <div className="card-text" hidden={!this.state.flipped}>
-            {this.props.cards[this.state.index].back}
+          <div className="buttonRow">
+            <button
+              disabled={this.state.index <= 0}
+              onClick={() =>
+                this.setState({ index: this.state.index - 1, flipped: false })
+              }
+            >
+              {"< Previous Card"}
+            </button>
+            <button
+              disabled={this.state.index >= this.props.cards.length - 1}
+              onClick={() =>
+                this.setState({ index: this.state.index + 1, flipped: false })
+              }
+            >
+              {"Next Card >"}
+            </button>
           </div>
+          <Link to="/">
+            <button className="grey">{"Return Home"}</button>
+          </Link>
         </div>
-        <br />
-        <button
-          disabled={this.state.index <= 0}
-          onClick={() =>
-            this.setState({ index: this.state.index - 1, flipped: false })
-          }
-        >
-          {" "}
-          Previous card{" "}
-        </button>
-        <button
-          disabled={this.state.index >= this.props.cards.length - 1}
-          onClick={() =>
-            this.setState({ index: this.state.index + 1, flipped: false })
-          }
-        >
-          {" "}
-          Next card{" "}
-        </button>
-        <br /> <br />
-        <Link to="/">Home</Link>
-      </div>
+      </>
     );
   }
 }

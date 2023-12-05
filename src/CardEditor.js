@@ -34,13 +34,13 @@ class CardEditor extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
 
   createDeck = () => {
-    const deckId = this.props.firebase.push('/flashcards').key;
+    const deckId = this.props.firebase.push("/flashcards").key;
     const updates = {};
     const newDeck = { cards: this.state.cards, name: this.state.name };
     updates[`/flashcards/${deckId}`] = newDeck;
     updates[`/homepage/${deckId}`] = { name: this.state.name };
     const onComplete = () => this.props.history.push(`/viewer/${deckId}`);
-    this.props.firebase.update('/', updates, onComplete);
+    this.props.firebase.update("/", updates, onComplete);
   };
 
   render() {
@@ -50,7 +50,9 @@ class CardEditor extends React.Component {
           <td>{card.front}</td>
           <td>{card.back}</td>
           <td>
-            <button onClick={() => this.deleteCard(index)}>Delete card</button>
+            <button class="delete" onClick={() => this.deleteCard(index)}>
+              Delete card
+            </button>
           </td>
         </tr>
       );
@@ -58,18 +60,21 @@ class CardEditor extends React.Component {
 
     return (
       <div>
-        <h2>Card Editor</h2>
-        <div>
-          Deck name:{" "}
-          <input
-            name="name"
-            onChange={this.handleChange}
-            placeholder="Name of deck"
-            value={this.state.name}
-          />
-        </div>
+        <header>
+          <h2>Card Editor</h2>
+          <div>
+            Deck Name:{" "}
+            <input
+              name="name"
+              className="largeInput"
+              onChange={this.handleChange}
+              placeholder="Name of deck"
+              value={this.state.name}
+            />
+          </div>
+        </header>
         <br />
-        <table>
+        <table className="editTable">
           <thead>
             <tr>
               <th>Front</th>
@@ -80,30 +85,35 @@ class CardEditor extends React.Component {
           <tbody>{cards}</tbody>
         </table>
         <br />
-        <input
-          name="front"
-          onChange={this.handleChange}
-          placeholder="Front of card"
-          value={this.state.front}
-        />
-        <input
-          name="back"
-          onChange={this.handleChange}
-          placeholder="Back of card"
-          value={this.state.back}
-        />
-        <button onClick={this.addCard}>Add card</button>
-        <hr />
-        <div>
+        <div className="addCard">
+          <input
+            name="front"
+            className="largeInput"
+            onChange={this.handleChange}
+            placeholder="Front of card"
+            value={this.state.front}
+          />
+          <input
+            name="back"
+            className="largeInput"
+            onChange={this.handleChange}
+            placeholder="Back of card"
+            value={this.state.back}
+          />
+          <button onClick={this.addCard}>Add card</button>
+        </div>
+        <div className="footer">
           <button
+            className="large"
             disabled={!this.state.name.trim() || this.state.cards.length === 0}
             onClick={this.createDeck}
           >
             Create deck
           </button>
+          <Link to="/">
+            <button className="grey">{"< Return Home"}</button>
+          </Link>
         </div>
-        <br />
-        <Link to="/">Home</Link>
       </div>
     );
   }

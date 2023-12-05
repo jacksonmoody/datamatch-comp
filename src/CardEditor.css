@@ -12,3 +12,80 @@ td,
 th {
   padding: 10px;
 }
+
+header {
+  font-family: 'Raleway';
+  font-size: 1.5em;
+  font-weight: 600;
+  text-align: center;
+}
+
+.addCard {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: center;
+  padding: 1em;
+}
+
+.largeInput {
+  font-family: 'Raleway';
+  font-size: 0.8em;
+  font-weight: 300;
+  text-align: center;
+  line-height: 1.5em;
+}
+
+.editTable {
+  font-family: 'Raleway';
+  margin: 0 auto;
+  table-layout: fixed;
+  text-align: center;
+  width: 50%;
+}
+
+.footer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 1em;
+  text-align: center;
+  gap: 1em;
+  width: 100%;
+}
+
+button {
+  background-color: lightskyblue;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-family: 'Raleway';
+  font-size: 1em;
+  font-weight: 600;
+  padding: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.2s;
+  &:hover {
+    background-color: deepskyblue;
+  }
+  &.delete {
+    background-color: lightcoral;
+    &:hover {
+      background-color: red;
+    }
+  }
+  &.grey {
+    background-color: lightslategray;
+    &:hover {
+      background-color: slategrey;
+    }
+  }
+  &.large {
+    font-size: 1.5em;
+  }
+}
